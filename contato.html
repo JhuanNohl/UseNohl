@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UseNohl - Roupas e Acessórios</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        .contato-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .perfil-lado {
+            flex: 1;
+            min-width: 280px;
+            background: linear-gradient(145deg, var(--primary-color-light), var(--sidebar-color));
+            border-radius: 30px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--primary-color-light);
+            transition: var(--tran-03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .perfil-lado::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .silhueta-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), #9d8cff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(105, 92, 254, 0.3);
+            border: 4px solid var(--sidebar-color);
+        }
+
+        .silhueta-feminina {
+            width: 180px;
+            height: 180px;
+            background: var(--sidebar-color);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .silhueta-feminina svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--primary-color);
+        }
+
+        .proprietaria-nome {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-color) !important;
+            margin-bottom: 5px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .proprietaria-cargo {
+            font-size: 16px;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+            padding: 8px 25px;
+            background: rgba(105, 92, 254, 0.1);
+            border-radius: 50px;
+            border: 1px solid white;
+            backdrop-filter: blur(5px) skyblue;
+            text-shadow: 5px white;
+        }
+
+        .mensagem-boas-vindas {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-color) !important;
+            opacity: 0.95;
+            margin-bottom: 25px;
+            padding: 20px;
+            font-style: italic;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border-left: 4px solid var(--primary-color);
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .assinatura {
+            font-family: 'Brush Script MT', cursive, 'Poppins', sans-serif;
+            font-size: 28px;
+            color: var(--primary-color) !important;
+            margin-top: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            opacity: 0.9;
+        }
+
+        .contato-lado {
+            flex: 1.2;
+            min-width: 320px;
+            background: var(--sidebar-color);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--toggle-color);
+        }
+
+        .contato-titulo {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-color) !important;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contato-titulo i {
+            color: var(--primary-color);
+            font-size: 40px;
+        }
+
+        .contato-subtitulo {
+            font-size: 16px;
+            color: var(--text-color) !important;
+            opacity: 1;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed var(--toggle-color);
+        }
+
+        .contato-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: var(--primary-color-light);
+            border-radius: 20px;
+            margin-bottom: 15px;
+            transition: var(--tran-03);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .contato-card:hover {
+            transform: translateX(10px);
+            border-color: var(--primary-color);
+            background: var(--sidebar-color);
+            box-shadow: 0 5px 15px rgba(105, 92, 254, 0.2);
+        }
+
+        .contato-icone {
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            background: var(--primary-color);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(105, 92, 254, 0.3);
+        }
+
+        .contato-info {
+            flex: 1;
+        }
+
+        .contato-info h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-color) !important;
+            margin-bottom: 5px;
+        }
+
+        .contato-info p {
+            font-size: 16px;
+            color: var(--text-color) !important;
+            opacity: 0.9;
+            word-break: break-word;
+        }
+
+        .contato-info small {
+            font-size: 12px;
+            color: var(--primary-color);
+            opacity: 0.9;
+            display: block;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        .botao-whatsapp {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 25px;
+            transition: var(--tran-03);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .botao-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            background: #20ba5a;
+        }
+
+        .redes-sociais-contato {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .rede-social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            background: var(--primary-color-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--text-color) !important;
+            transition: var(--tran-03);
+            text-decoration: none;
+            border: 1px solid var(--toggle-color);
+        }
+
+        .rede-social-icon:hover {
+            background: var(--primary-color);
+            color: white !important;
+            transform: translateY(-5px) scale(1.1);
+            border-color: var(--primary-color);
+        }
+
+        .horario-atendimento {
+            margin-top: 25px;
+            padding: 18px;
+            background: linear-gradient(145deg, var(--primary-color-light), var(--sidebar-color));
+            border-radius: 18px;
+            text-align: center;
+            border: 1px solid var(--toggle-color);
+        }
+
+        .horario-atendimento p {
+            color: var(--text-color) !important;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .horario-atendimento i {
+            color: var(--primary-color);
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .contato-container {
+                flex-direction: column;
+            }
+
+            .perfil-lado,
+            .contato-lado {
+                min-width: 100%;
+            }
+
+            .contato-card:hover {
+                transform: translateX(5px);
+            }
+        }
+
+        .decorativo {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.03;
+            bottom: -50px;
+            left: -50px;
+            pointer-events: none;
+        }
+
+        .decorativo2 {
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+        }
+
+        /* Garantir que textos usem a variável correta */
+        body.dark .proprietaria-nome,
+        body.dark .mensagem-boas-vindas,
+        body.dark .contato-titulo,
+        body.dark .contato-subtitulo,
+        body.dark .contato-info h4,
+        body.dark .contato-info p,
+        body.dark .horario-atendimento p {
+            color: #E4E9F7 !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark .proprietaria-cargo {
+            background: rgba(105, 92, 254, 0.25);
+            border-color: var(--primary-color);
+        }
+
+        body.dark .mensagem-boas-vindas {
+            background: rgba(0, 0, 0, 0.2);
+            border-left-color: var(--primary-color);
+        }
+
+        body.dark .rede-social-icon {
+            background: var(--primary-color-light);
+            border-color: var(--primary-color);
+        }
+
+        body.dark .contato-card {
+            background: rgba(58, 59, 60, 0.5);
+        }
+
+        body.dark .contato-card:hover {
+            background: var(--primary-color-light);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <nav class="sidebar">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="logo.png" alt="UseNohl" class="logo-img">
+                </span>
+                <div class="text header-text">
+                    <span class="name">UseNohl</span>
+                    <span class="profession">Roupas e Acessórios</span>
+                </div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box">
+                    <i class='bx bx-search icon'></i>
+                    <input type="search" placeholder="Pesquisar...">
+                </li>
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="index.html">
+                            <img src="icons/inicio.png" alt="Início" class="icon-img" data-light="icons/inicio.png"
+                                data-dark="icons/inicio-branca.png">
+                            <span class="text nav-text">Início</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="blusa.html">
+                            <img src="icons/tshirt.png" alt="Blusa" class="icon-img" data-light="icons/tshirt.png"
+                                data-dark="icons/tshirt-branca.png">
+                            <span class="text nav-text">Blusa</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="calça.html">
+                            <img src="icons/pants.png" alt="Calça" class="icon-img" data-light="icons/pants.png"
+                                data-dark="icons/pants-branca.png">
+                            <span class="text nav-text">Calça</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="acessorios.html">
+                            <img src="icons/acessorios.png" alt="Acessórios" class="icon-img"
+                                data-light="icons/acessorios.png" data-dark="icons/acessorios-branca.png">
+                            <span class="text nav-text">Acessórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="meuperfil.html">
+                            <img src="icons/perfil.png" alt="Meu Perfil" class="icon-img" data-light="icons/perfil.png"
+                                data-dark="icons/perfil-branca.png">
+                            <span class="text nav-text">Meu Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="contato.html">
+                            <img src="icons/envelope.png" alt="Contato" class="icon-img" data-light="icons/envelope.png"
+                                data-dark="icons/envelope-branca.png">
+                            <span class="text nav-text">Contato</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="mode">
+                    <a href="#">
+                        <i class='bx bx-moon icon'></i>
+                        <span class="text nav-text"></span>
+                    </a>
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+
+    <section class="home">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div class="text">UseNohl</div>
+            <div class="carrinho-container">
+                <img src="icons/carrinho.png" alt="Carrinho" class="carrinho-icon" data-light="icons/carrinho.png"
+                    data-dark="icons/carrinho-branca.png">
+                <span class="carrinho-badge">0</span>
+                <div class="carrinho-tooltip">0 itens no carrinho</div>
+            </div>
+        </div>
+
+        <p>Somos um espaço dedicado à costura e moda. Aqui, você encontra desde encomendas
+            personalizadas feitas sob medida para você, até uma seleção rigorosa de peças prontas com um excelente
+            custo-benefício.<br> O melhor da moda em um só lugar!</p>
+        <div class="contato-container">
+
+            <!-- Perfil da Proprietária -->
+
+            <div class="perfil-lado">
+                <div class="silhueta-container">
+                    <div class="silhueta-feminina">
+                        <svg viewBox="0 0 100 100" fill="currentColor">
+                            <circle cx="50" cy="35" r="20" />
+                            <path d="M20 70 Q30 50, 50 50 Q70 50, 80 70 L80 90 Q50 100, 20 90 Z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="proprietaria-nome">Livia Nohl</div>
+                <div class="proprietaria-cargo">Fundadora & Estilista</div>
+                <div class="mensagem-boas-vindas">
+                    "Cada peça é pensada com carinho para que você se sinta única e especial. Vamos conversar sobre seu
+                    estilo?"
+                </div>
+                <div class="assinatura">UseNohl</div>
+                <div class="decorativo"></div>
+                <div class="decorativo decorativo2"></div>
+            </div>
+
+            <!-- Informações de Contato -->
+
+            <div class="contato-lado">
+                <div class="contato-titulo">
+                    <i class='bx bx-message-rounded-dots'></i>
+                    Entre em Contato
+                </div>
+                <div class="contato-subtitulo">
+                    Estamos aqui para ajudar! Escolha a melhor forma de falar conosco.
+                </div>
+
+                <!-- Cards de contato -->
+
+                <div class="contato-card" onclick="window.location.href='mailto:contato@usenohl.com'">
+                    <div class="contato-icone">
+                        <i class='bx bx-envelope'></i>
+                    </div>
+                    <div class="contato-info">
+                        <h4>E-mail</h4>
+                        <p>contato@usenohl.com</p>
+                        <small>Respondemos em até 24h</small>
+                    </div>
+                </div>
+
+                <div class="contato-card" onclick="window.location.href='tel:3133334444'">
+                    <div class="contato-icone">
+                        <i class='bx bx-phone'></i>
+                    </div>
+                    <div class="contato-info">
+                        <h4>Telefone</h4>
+                        <p>(31) 3333-4444</p>
+                        <small>Seg à Sex, 9h às 18h</small>
+                    </div>
+                </div>
+
+                <div class="contato-card" onclick="window.location.href='https://wa.me/5531999998888'">
+                    <div class="contato-icone">
+                        <i class='bx bxl-whatsapp'></i>
+                    </div>
+                    <div class="contato-info">
+                        <h4>WhatsApp</h4>
+                        <p>(31) 99999-8888</p>
+                        <small>Atendimento rápido e prático</small>
+                    </div>
+                </div>
+
+                <div class="contato-card"
+                    onclick="window.open('https://maps.google.com/?q=Rua+Nina+Fonseca+157+Vespasiano', '_blank')">
+                    <div class="contato-icone">
+                        <i class='bx bx-map'></i>
+                    </div>
+                    <div class="contato-info">
+                        <h4>Endereço</h4>
+                        <p>Rua Nina Fonseca, 157</p>
+                        <p>Nazia - Vespasiano/MG</p>
+                        <small>Clique para ver no mapa</small>
+                    </div>
+                </div>
+
+                <!-- Botão WhatsApp -->
+
+                <a href="https://wa.me/5531999998888?text=Olá!%20Vim%20pelo%20site%20UseNohl%20e%20gostaria%20de%20informações."
+                    class="botao-whatsapp" target="_blank">
+                    <i class='bx bxl-whatsapp'></i> Fale conosco no WhatsApp
+                </a>
+
+                <!-- Redes Sociais -->
+
+                <div class="redes-sociais-contato">
+                    <a href="https://wa.me/5531999998888" target="_blank" class="rede-social-icon" title="WhatsApp">
+                        <i class='bx bxl-whatsapp'></i>
+                    </a>
+                    <a href="https://instagram.com/usenohl" target="_blank" class="rede-social-icon" title="Instagram">
+                        <i class='bx bxl-instagram'></i>
+                    </a>
+                    <a href="mailto:contato@usenohl.com" target="_blank" class="rede-social-icon" title="Gmail">
+                        <i class='bx bxl-gmail'></i>
+                    </a>
+                    <a href="#" target="_blank" class="rede-social-icon" title="Facebook">
+                        <i class='bx bxl-facebook'></i>
+                    </a>
+                </div>
+
+                <!-- Horário de Atendimento -->
+
+                <div class="horario-atendimento">
+                    <p>
+                        <i class='bx bx-time'></i>
+                        Segunda a Sexta: 9h às 18h | Sábado: 9h às 13h
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+
+</html>

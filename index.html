@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UseNohl - Roupas e Acessórios</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <nav class="sidebar">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="logo.png" alt="UseNohl" class="logo-img">
+                </span>
+                <div class="text header-text">
+                    <span class="name">UseNohl</span>
+                    <span class="profession">Roupas e Acessórios</span>
+                </div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box">
+                    <i class='bx bx-search icon'></i>
+                    <input type="search" placeholder="Pesquisar...">
+                </li>
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="index.html">
+                            <img src="icons/inicio.png" alt="Início" class="icon-img" data-light="icons/inicio.png"
+                                data-dark="icons/inicio-branca.png">
+                            <span class="text nav-text">Início</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="blusa.html">
+                            <img src="icons/tshirt.png" alt="Blusa" class="icon-img" data-light="icons/tshirt.png"
+                                data-dark="icons/tshirt-branca.png">
+                            <span class="text nav-text">Blusa</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="calça.html">
+                            <img src="icons/pants.png" alt="Calça" class="icon-img" data-light="icons/pants.png"
+                                data-dark="icons/pants-branca.png">
+                            <span class="text nav-text">Calça</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="acessorios.html">
+                            <img src="icons/acessorios.png" alt="Acessórios" class="icon-img"
+                                data-light="icons/acessorios.png" data-dark="icons/acessorios-branca.png">
+                            <span class="text nav-text">Acessórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="meuperfil.html">
+                            <img src="icons/perfil.png" alt="Meu Perfil" class="icon-img" data-light="icons/perfil.png"
+                                data-dark="icons/perfil-branca.png">
+                            <span class="text nav-text">Meu Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="contato.html">
+                            <img src="icons/envelope.png" alt="Contato" class="icon-img" data-light="icons/envelope.png"
+                                data-dark="icons/envelope-branca.png">
+                            <span class="text nav-text">Contato</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="mode">
+                    <a href="#">
+                        <i class='bx bx-moon icon'></i>
+                        <span class="text nav-text"></span>
+                    </a>
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+
+    <section class="home">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div class="text">UseNohl</div>
+
+            <!-- Ícone do Carrinho -->
+
+            <div class="carrinho-container">
+                <img src="icons/carrinho.png" alt="Carrinho" class="carrinho-icon" data-light="icons/carrinho.png"
+                    data-dark="icons/carrinho-branca.png">
+                <span class="carrinho-badge">0</span>
+                <div class="carrinho-tooltip">0 itens no carrinho</div> <!-- NOVO: tooltip -->
+            </div>
+        </div>
+
+        <!-- Produtos -->
+
+        <div style="margin-top: 30px; color: var(--text-color);">
+            <h3>Destaques</h3>
+            <div class="destaques-grid">
+
+                <!-- Card 1: Manta Acolchoada -->
+
+                <div class="destaque-card">
+                    <div class="destaque-imagem">
+                        <img src="acessorios/manta.jpg" alt="Manta Acolchoada">
+                    </div>
+                    <h4>Manta Acolchoada</h4>
+                    <div class="precos">
+                        <span class="preco-original">R$ 89,90</span>
+                        <span class="preco-atual">R$ 69,90</span>
+                    </div>
+                    <button class="btn-comprar-card" data-produto="Manta Acolchoada">ADICIONAR</button>
+                </div>
+
+                <!-- Card 2: Calça Branca Cargo -->
+
+                <div class="destaque-card">
+                    <div class="destaque-imagem">
+                        <img src="calca/calca-branca.jpg" alt="Calça Branca Cargo">
+                    </div>
+                    <h4>Calça Branca Cargo</h4>
+                    <div class="precos">
+                        <span class="preco-original">R$ 169,90</span>
+                        <span class="preco-atual">R$ 127,90</span>
+                    </div>
+                    <button class="btn-comprar-card" data-produto="Calça Branca Cargo">ADICIONAR</button>
+                </div>
+
+                <!-- Card 3: Cupom -->
+
+                <div class="destaque-card cupom-card">
+                    <i class='bx bx-gift'></i>
+                    <h4>10% OFF</h4>
+                    <p>NA PRIMEIRA COMPRA</p>
+                    <div class="codigo-cupom">
+                        <strong>USE14NOHL</strong>
+                    </div>
+                    <p style="font-size: 14px; margin-top: 5px;">Válido para todo o site</p>
+                </div>
+
+                <!-- Card 4: Frete Grátis -->
+
+                <div class="destaque-card frete-card">
+                    <div>
+                        <div>
+                            <i class='bx bx-package'></i>
+                            <div>
+                                <h4>FRETE GRÁTIS</h4>
+                                <p>em compras acima de R$ 100,00</p>
+                            </div>
+                        </div>
+                        <div>
+                            APROVEITE JÁ
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+
+</html>

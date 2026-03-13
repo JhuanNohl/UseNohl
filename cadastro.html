@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UseNohl - Cadastro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        body.cadastro-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--body-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .cadastro-wrapper {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cadastro-wrapper .login-container {
+            background: var(--sidebar-color);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--toggle-color);
+            width: 100%;
+        }
+
+        .cadastro-wrapper .logo-cadastro {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .cadastro-wrapper .logo-cadastro img {
+            max-width: 120px;
+            height: auto;
+        }
+
+        .input-group-custom {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .input-group-custom i {
+            position: absolute;
+            left: 15px;
+            color: var(--text-color);
+            opacity: 0.5;
+            font-size: 20px;
+            z-index: 1;
+            transition: var(--tran-03);
+        }
+
+        .input-group-custom.focused i {
+            color: var(--primary-color);
+            opacity: 1;
+        }
+
+        .input-group-custom input,
+        .input-group-custom select,
+        .input-group-custom textarea {
+            width: 100%;
+            padding: 15px 45px;
+            background: var(--primary-color-light);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            font-size: 16px;
+            color: var(--text-color);
+            transition: var(--tran-03);
+        }
+
+        .input-group-custom input:focus,
+        .input-group-custom select:focus,
+        .input-group-custom textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(105, 92, 254, 0.1);
+            background: var(--sidebar-color);
+        }
+
+        .input-group-custom select {
+            appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23707070' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+        }
+
+        .input-group-custom input,
+        .phone-container input {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        #cep-group {
+            position: relative;
+        }
+
+        #cep-group i.bx-map {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.5;
+            font-size: 20px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #cep-group .cep-loading {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 20px;
+            animation: spin 1s linear infinite;
+            display: none;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #cep-group.loading .cep-loading {
+            display: block;
+        }
+
+        #cep-group input {
+            padding-left: 45px !important;
+            padding-right: 45px !important;
+            width: 100%;
+            background: var(--primary-color-light);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            font-size: 16px;
+            color: var(--text-color);
+            transition: var(--tran-03);
+        }
+
+        #cep-group.focused i.bx-map {
+            color: var(--primary-color);
+            opacity: 1;
+        }
+
+        @keyframes spin {
+            from {
+                transform: translateY(-50%) rotate(0deg);
+            }
+
+            to {
+                transform: translateY(-50%) rotate(360deg);
+            }
+        }
+
+        .phone-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .phone-container i {
+            position: absolute;
+            left: 15px;
+            color: var(--text-color);
+            opacity: 0.5;
+            font-size: 20px;
+            z-index: 1;
+        }
+
+        .phone-prefix {
+            position: absolute;
+            left: 45px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-color);
+            opacity: 0.7;
+            font-size: 16px;
+            pointer-events: none;
+            background: var(--primary-color-light);
+            padding-right: 10px;
+            border-right: 2px solid var(--toggle-color);
+            height: 30px;
+            z-index: 2;
+        }
+
+        .phone-prefix .flag {
+            font-size: 20px;
+        }
+
+        .phone-prefix .ddd {
+            font-weight: 600;
+            color: var(--primary-color);
+            min-width: 35px;
+        }
+
+        .phone-container input {
+            width: 100%;
+            padding: 15px 45px 15px 155px;
+            background: var(--primary-color-light);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            font-size: 16px;
+            color: var(--text-color);
+            transition: var(--tran-03);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .phone-container input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(105, 92, 254, 0.1);
+            background: var(--sidebar-color);
+        }
+
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.5fr;
+            gap: 15px;
+        }
+
+        .row-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.2fr 1.2fr;
+            gap: 15px;
+        }
+
+        .input-group-custom.valid input,
+        .phone-container.valid input {
+            border-color: #2ecc71;
+        }
+
+        .input-group-custom.invalid input,
+        .phone-container.invalid input {
+            border-color: #ff4d4d;
+        }
+
+        .validation-message {
+            font-size: 12px;
+            margin-top: 5px;
+            margin-left: 45px;
+            color: #ff4d4d;
+            display: none;
+        }
+
+        .input-group-custom.invalid .validation-message,
+        .phone-container.invalid .validation-message {
+            display: block;
+        }
+
+        select option {
+            background: var(--sidebar-color);
+            color: var(--text-color);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--sidebar-color);
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--primary-color);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color-light);
+        }
+
+        .modal-header h3 {
+            color: var(--text-color);
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-header h3 i {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-color-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--tran-03);
+            font-size: 24px;
+            color: var(--text-color);
+        }
+
+        .modal-close:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .modal-body h4 {
+            color: var(--primary-color);
+            margin: 20px 0 10px;
+            font-size: 18px;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .modal-body ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .modal-body li {
+            margin-bottom: 8px;
+        }
+
+        .modal-footer {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--toggle-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .modal-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--tran-03);
+        }
+
+        .modal-btn.primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .modal-btn.primary:hover {
+            background: var(--text-color);
+            transform: translateY(-2px);
+        }
+
+        .modal-btn.secondary {
+            background: var(--primary-color-light);
+            color: var(--text-color);
+        }
+
+        .modal-btn.secondary:hover {
+            background: var(--toggle-color);
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+            font-size: 15px;
+            color: var(--text-color);
+            user-select: none;
+            line-height: 1.4;
+        }
+
+        .checkbox-container a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .checkbox-container a:hover {
+            text-decoration: underline;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 20px;
+            width: 20px;
+            background-color: var(--primary-color-light);
+            border: 2px solid var(--toggle-color);
+            border-radius: 5px;
+            transition: var(--tran-02);
+        }
+
+        .checkbox-container:hover input~.checkmark {
+            background-color: var(--toggle-color);
+            border-color: var(--primary-color);
+        }
+
+        .checkbox-container input:checked~.checkmark {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked~.checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .input-group-custom .floating-label {
+            position: absolute;
+            left: 45px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.7;
+            font-size: 16px;
+            pointer-events: none;
+            transition: var(--tran-03);
+            background: var(--primary-color-light);
+            padding: 0 5px;
+            border-radius: 4px;
+            z-index: 1;
+        }
+
+        .input-group-custom.focused .floating-label,
+        .input-group-custom input:not(:placeholder-shown)+.floating-label,
+        .input-group-custom select:not([value=""]):valid+.floating-label {
+            top: 0;
+            transform: translateY(-50%) scale(0.85);
+            background: var(--sidebar-color);
+            color: var(--primary-color);
+            opacity: 1;
+            font-weight: 500;
+        }
+
+        .phone-container .floating-label {
+            position: absolute;
+            left: 155px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.7;
+            font-size: 16px;
+            pointer-events: none;
+            transition: var(--tran-03);
+            background: var(--primary-color-light);
+            padding: 0 5px;
+            border-radius: 4px;
+            z-index: 1;
+        }
+
+        .phone-container.focused .floating-label,
+        .phone-container input:not(:placeholder-shown)+.floating-label {
+            top: 0;
+            transform: translateY(-50%) scale(0.85);
+            background: var(--sidebar-color);
+            color: var(--primary-color);
+            opacity: 1;
+            font-weight: 500;
+        }
+
+        .login-container {
+            max-width: 800px;
+            padding: 30px;
+        }
+
+        .login-header p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .login-form {
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .cadastro-wrapper .login-container {
+                padding: 30px 20px;
+            }
+
+            .row-2,
+            .row-3,
+            .row-4 {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body class="cadastro-page">
+    <div class="cadastro-wrapper">
+        <div class="modal-overlay" id="termos-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>
+                        <i class='bx bx-file'></i>
+                        Termos de Uso
+                    </h3>
+                    <div class="modal-close" onclick="fecharTermos()">
+                        <i class='bx bx-x'></i>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <h4>1. Aceitação dos Termos</h4>
+                    <p>Ao criar uma conta na UseNohl, você concorda com todos os termos e condições descritos neste
+                        documento. A UseNohl é uma plataforma de comércio eletrônico dedicada à venda de roupas e
+                        acessórios.</p>
+
+                    <h4>2. Proteção de Dados Pessoais</h4>
+                    <p>Seus dados pessoais são protegidos de acordo com a Lei Geral de Proteção de Dados (LGPD - Lei
+                        13.709/2018). A UseNohl se compromete a:</p>
+                    <ul>
+                        <li>Não compartilhar seus dados com terceiros sem seu consentimento explícito</li>
+                        <li>Armazenar suas informações de forma segura e criptografada</li>
+                        <li>Utilizar seus dados apenas para processamento de pedidos e melhorias na experiência de
+                            compra
+                        </li>
+                        <li>Permitir que você acesse, corrija ou exclua seus dados a qualquer momento</li>
+                    </ul>
+
+                    <h4>3. Política de Privacidade</h4>
+                    <p>As informações coletadas (nome, e-mail, CPF, endereço, telefone) são utilizadas exclusivamente
+                        para:
+                    </p>
+                    <ul>
+                        <li>Processamento e entrega de pedidos</li>
+                        <li>Comunicação sobre status de compras</li>
+                        <li>Personalização da sua experiência na loja</li>
+                        <li>Programa de fidelidade e acúmulo de pontos</li>
+                    </ul>
+
+                    <h4>4. Segurança</h4>
+                    <p>Utilizamos as melhores práticas de segurança para proteger seus dados, incluindo:</p>
+                    <ul>
+                        <li>Criptografia de ponta a ponta</li>
+                        <li>Armazenamento seguro de senhas</li>
+                        <li>Monitoramento constante contra acessos não autorizados</li>
+                    </ul>
+
+                    <h4>5. Direitos do Usuário</h4>
+                    <p>Você tem direito a:</p>
+                    <ul>
+                        <li>Solicitar a exclusão permanente da sua conta</li>
+                        <li>Acessar todos os dados que temos sobre você</li>
+                        <li>Corrigir informações desatualizadas</li>
+                        <li>Revogar o consentimento para uso de dados</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn secondary" onclick="fecharTermos()">Fechar</button>
+                    <button class="modal-btn primary" onclick="aceitarTermos()">Aceitar Termos</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="logo-cadastro">
+            <img src="logo.png" alt="UseNohl">
+        </div>
+
+        <div class="login-container">
+            <div class="login-header">
+                <i class='bx bx-user-plus'></i>
+                <h2>Criar nova conta</h2>
+                <p>Preencha seus dados para começar a aproveitar nossas ofertas</p>
+            </div>
+
+            <form id="register-form" class="login-form" onsubmit="event.preventDefault(); fazerCadastro()">
+                <div class="input-group-custom">
+                    <i class='bx bx-user'></i>
+                    <input type="text" id="nome" placeholder=" " required>
+                    <span class="floating-label">Nome completo</span>
+                </div>
+
+                <div class="input-group-custom">
+                    <i class='bx bx-envelope'></i>
+                    <input type="email" id="email" placeholder=" " required>
+                    <span class="floating-label">E-mail</span>
+                </div>
+
+                <div class="row-2">
+                    <div class="input-group-custom">
+                        <i class='bx bx-lock-alt'></i>
+                        <input type="password" id="password" placeholder=" " required>
+                        <span class="floating-label">Senha</span>
+                    </div>
+                    <div class="input-group-custom">
+                        <i class='bx bx-lock-alt'></i>
+                        <input type="password" id="confirm-password" placeholder=" " required>
+                        <span class="floating-label">Confirmar senha</span>
+                    </div>
+                </div>
+
+                <div class="row-2">
+                    <div class="input-group-custom">
+                        <i class='bx bx-calendar'></i>
+                        <input type="date" id="data-nascimento" placeholder=" " required>
+                        <span class="floating-label">Data de nascimento</span>
+                    </div>
+                    <div class="input-group-custom" id="cpf-group">
+                        <i class='bx bx-id-card'></i>
+                        <input type="text" id="cpf" placeholder=" " maxlength="14" required class="cpf-mask">
+                        <span class="floating-label">CPF</span>
+                        <div class="validation-message">CPF inválido</div>
+                    </div>
+                </div>
+
+                <div class="phone-container" id="phone-group">
+                    <i class='bx bx-phone'></i>
+                    <div class="phone-prefix">
+                        <span class="flag">🇧🇷</span>
+                        <span>+55</span>
+                        <span class="ddd" id="ddd-display">( )</span>
+                    </div>
+                    <input type="tel" id="telefone" placeholder=" " required inputmode="numeric">
+                    <span class="floating-label">Número de telefone</span>
+                    <div class="validation-message" id="phone-validation">Telefone inválido</div>
+                </div>
+
+                <div class="input-group-custom">
+                    <i class='bx bx-map'></i>
+                    <input type="text" id="logradouro" placeholder=" " required>
+                    <span class="floating-label">Logradouro (Rua, Av, etc)</span>
+                </div>
+
+                <div class="row-4">
+                    <div class="input-group-custom">
+                        <input type="text" id="numero" placeholder=" " required>
+                        <span class="floating-label">Número</span>
+                    </div>
+                    <div class="input-group-custom">
+                        <input type="text" id="bairro" placeholder=" " required>
+                        <span class="floating-label">Bairro</span>
+                    </div>
+                    <div class="input-group-custom">
+                        <input type="text" id="cidade" placeholder=" " required>
+                        <span class="floating-label">Cidade</span>
+                    </div>
+                    <div class="input-group-custom" id="cep-group">
+                        <i class='bx bx-map'></i>
+                        <input type="text" id="cep" placeholder=" " maxlength="9">
+                        <span class="floating-label">CEP</span>
+                        <i class='bx bx-loader-alt cep-loading'></i>
+                    </div>
+                </div>
+
+                <div class="row-3">
+                    <div class="input-group-custom">
+                        <select id="estado" required>
+                            <option value="" disabled selected></option>
+                            <option value="AC">AC</option>
+                            <option value="AL">AL</option>
+                            <option value="AP">AP</option>
+                            <option value="AM">AM</option>
+                            <option value="BA">BA</option>
+                            <option value="CE">CE</option>
+                            <option value="DF">DF</option>
+                            <option value="ES">ES</option>
+                            <option value="GO">GO</option>
+                            <option value="MA">MA</option>
+                            <option value="MT">MT</option>
+                            <option value="MS">MS</option>
+                            <option value="MG">MG</option>
+                            <option value="PA">PA</option>
+                            <option value="PB">PB</option>
+                            <option value="PR">PR</option>
+                            <option value="PE">PE</option>
+                            <option value="PI">PI</option>
+                            <option value="RJ">RJ</option>
+                            <option value="RN">RN</option>
+                            <option value="RS">RS</option>
+                            <option value="RO">RO</option>
+                            <option value="RR">RR</option>
+                            <option value="SC">SC</option>
+                            <option value="SP">SP</option>
+                            <option value="SE">SE</option>
+                            <option value="TO">TO</option>
+                        </select>
+                        <span class="floating-label">UF</span>
+                    </div>
+                    <div class="input-group-custom">
+                        <input type="text" id="complemento" placeholder=" " maxlength="30">
+                        <span class="floating-label">Complemento</span>
+                    </div>
+                    <div class="input-group-custom">
+                        <input type="text" id="referencia" placeholder=" ">
+                        <span class="floating-label">Ponto de referência</span>
+                    </div>
+                </div>
+
+                <div class="remember-forgot" style="margin-top: 20px;">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="termos" required>
+                        <span class="checkmark"></span>
+                        Aceito os <a href="#" onclick="abrirTermos(event)"> Termos de Uso!</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="login-btn">CRIAR MINHA CONTA</button>
+
+                <div class="register-link">
+                    Já tem uma conta? <a href="login.html">Fazer login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.input-group-custom input, .input-group-custom select, .phone-container input').forEach(input => {
+            input.addEventListener('focus', function () {
+                this.closest('.input-group-custom, .phone-container').classList.add('focused');
+            });
+
+            input.addEventListener('blur', function () {
+                this.closest('.input-group-custom, .phone-container').classList.remove('focused');
+            });
+
+            input.addEventListener('input', function () {
+                if (this.value) {
+                    this.setAttribute('title', this.value);
+                } else {
+                    this.removeAttribute('title');
+                }
+            });
+        });
+
+        document.getElementById('cpf').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+
+            if (value.length > 9) {
+                value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+            } else if (value.length > 6) {
+                value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+            } else if (value.length > 3) {
+                value = value.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+            }
+
+            e.target.value = value;
+            if (value) {
+                e.target.setAttribute('title', value);
+            }
+        });
+
+        document.getElementById('telefone').addEventListener('input', function (e) {
+            let numbers = this.value.replace(/\D/g, '');
+            if (numbers.length > 11) numbers = numbers.slice(0, 11);
+
+            // Aplica a máscara conforme a quantidade de dígitos
+            if (numbers.length > 10) {
+                // Celular com 9 dígitos: (99) 99999-9999
+                this.value = numbers.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+            } else if (numbers.length > 6) {
+                // Telefone fixo com 8 dígitos ou celular incompleto
+                this.value = numbers.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+            } else if (numbers.length > 2) {
+                // Parcial com DDD
+                this.value = numbers.replace(/(\d{2})(\d{0,4})/, '($1) $2');
+            } else if (numbers.length > 0) {
+                // Apenas DDD
+                this.value = numbers.replace(/(\d{0,2})/, '($1');
+            } else {
+                this.value = '';
+            }
+
+            if (numbers) {
+                this.setAttribute('title', numbers);
+            }
+        });
+
+        document.getElementById('telefone').addEventListener('keydown', function (e) {
+            if (e.key === 'Backspace' || e.key === 'Delete' || e.key === 'Tab' || e.key === 'Escape' ||
+                e.key === 'Enter' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Home' ||
+                e.key === 'End') {
+                return;
+            }
+            if (!/^\d$/.test(e.key)) {
+                e.preventDefault();
+            }
+        });
+
+        document.getElementById('cep').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 8) value = value.slice(0, 8);
+
+            if (value.length > 5) {
+                value = value.replace(/(\d{5})(\d{3})/, '$1-$2');
+            }
+
+            e.target.value = value;
+
+            if (value) {
+                e.target.setAttribute('title', value);
+            }
+        });
+
+        document.getElementById('cep').addEventListener('blur', function (e) {
+            let cep = e.target.value.replace(/\D/g, '');
+            if (cep.length !== 8) return;
+
+            const cepGroup = document.getElementById('cep-group');
+            cepGroup.classList.add('loading');
+
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    cepGroup.classList.remove('loading');
+
+                    if (!data.erro) {
+                        document.getElementById('logradouro').value = data.logradouro || '';
+                        document.getElementById('bairro').value = data.bairro || '';
+                        document.getElementById('cidade').value = data.localidade || '';
+                        document.getElementById('estado').value = data.uf || '';
+
+                        ['logradouro', 'bairro', 'cidade', 'estado'].forEach(id => {
+                            const campo = document.getElementById(id);
+                            if (campo.value) {
+                                campo.setAttribute('title', campo.value);
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    cepGroup.classList.remove('loading');
+                    console.error('Erro ao buscar CEP:', error);
+                });
+        });
+
+        function abrirTermos(event) {
+            event.preventDefault();
+            document.getElementById('termos-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function fecharTermos() {
+            document.getElementById('termos-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function aceitarTermos() {
+            document.getElementById('termos').checked = true;
+            fecharTermos();
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                fecharTermos();
+            }
+        });
+
+        document.querySelector('.modal-overlay').addEventListener('click', function (e) {
+            if (e.target === this) {
+                fecharTermos();
+            }
+        });
+
+        function validarCPF(cpf) {
+            cpf = cpf.replace(/\D/g, '');
+            if (cpf.length !== 11) return false;
+            if (/^(\d)\1+$/.test(cpf)) return false;
+
+            let soma = 0;
+            for (let i = 0; i < 9; i++) {
+                soma += parseInt(cpf.charAt(i)) * (10 - i);
+            }
+            let resto = 11 - (soma % 11);
+            let digito1 = resto > 9 ? 0 : resto;
+
+            soma = 0;
+            for (let i = 0; i < 10; i++) {
+                soma += parseInt(cpf.charAt(i)) * (11 - i);
+            }
+            resto = 11 - (soma % 11);
+            let digito2 = resto > 9 ? 0 : resto;
+
+            return (digito1 === parseInt(cpf.charAt(9)) && digito2 === parseInt(cpf.charAt(10)));
+        }
+
+        document.getElementById('cpf').addEventListener('blur', function (e) {
+            const group = document.getElementById('cpf-group');
+            if (validarCPF(e.target.value)) {
+                group.classList.remove('invalid');
+                group.classList.add('valid');
+            } else {
+                group.classList.remove('valid');
+                group.classList.add('invalid');
+            }
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

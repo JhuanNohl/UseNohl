@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UseNohl - Meu Perfil</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <nav class="sidebar">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="logo.png" alt="UseNohl" class="logo-img">
+                </span>
+                <div class="text header-text">
+                    <span class="name">UseNohl</span>
+                    <span class="profession">Roupas e Acessórios</span>
+                </div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box">
+                    <i class='bx bx-search icon'></i>
+                    <input type="search" placeholder="Pesquisar...">
+                </li>
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="index.html">
+                            <img src="icons/inicio.png" alt="Início" class="icon-img" data-light="icons/inicio.png"
+                                data-dark="icons/inicio-branca.png">
+                            <span class="text nav-text">Início</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="blusa.html">
+                            <img src="icons/tshirt.png" alt="Blusa" class="icon-img" data-light="icons/tshirt.png"
+                                data-dark="icons/tshirt-branca.png">
+                            <span class="text nav-text">Blusa</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="calça.html">
+                            <img src="icons/pants.png" alt="Calça" class="icon-img" data-light="icons/pants.png"
+                                data-dark="icons/pants-branca.png">
+                            <span class="text nav-text">Calça</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="acessorios.html">
+                            <img src="icons/acessorios.png" alt="Acessórios" class="icon-img"
+                                data-light="icons/acessorios.png" data-dark="icons/acessorios-branca.png">
+                            <span class="text nav-text">Acessórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="meuperfil.html">
+                            <img src="icons/perfil.png" alt="Meu Perfil" class="icon-img" data-light="icons/perfil.png"
+                                data-dark="icons/perfil-branca.png">
+                            <span class="text nav-text">Meu Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="contato.html">
+                            <img src="icons/envelope.png" alt="Contato" class="icon-img" data-light="icons/envelope.png"
+                                data-dark="icons/envelope-branca.png">
+                            <span class="text nav-text">Contato</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="mode">
+                    <a href="#">
+                        <i class='bx bx-moon icon'></i>
+                        <span class="text nav-text"></span>
+                    </a>
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+
+    <section class="home">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div class="text">UseNohl</div>
+            <div class="carrinho-container">
+                <img src="icons/carrinho.png" alt="Carrinho" class="carrinho-icon" data-light="icons/carrinho.png"
+                    data-dark="icons/carrinho-branca.png">
+                <span class="carrinho-badge">0</span>
+                <div class="carrinho-tooltip">0 itens no carrinho</div>
+            </div>
+        </div>
+        <div style="margin-top: 30px; color: var(--text-color);">
+            <h3>Meu Perfil</h3>
+            <div style="background: var(--primary-color-light); padding: 30px; border-radius: 12px;"
+                id="perfil-container">
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const usuario = JSON.parse(localStorage.getItem('usenohl-usuario'));
+            const perfilContainer = document.getElementById('perfil-container');
+
+            if (!usuario) {
+                window.location.href = 'login.html';
+            } else {
+
+                const usuarios = JSON.parse(localStorage.getItem('usenohl-usuarios') || '[]');
+                const usuarioCompleto = usuarios.find(u => u.email === usuario.email) || usuario;
+
+
+                let dataNascimento = 'Não informada';
+                if (usuarioCompleto.dataNascimento) {
+                    const data = new Date(usuarioCompleto.dataNascimento);
+                    dataNascimento = data.toLocaleDateString('pt-BR');
+                }
+
+                let cpf = usuarioCompleto.cpf || 'Não informado';
+                if (cpf && cpf.length === 11) {
+                    cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+                }
+
+                const score = usuarioCompleto.score || 0;
+                let nivel = 'Bronze';
+                let proximoNivel = 100;
+                let progresso = (score / 100) * 100;
+
+                if (score >= 1000) {
+                    nivel = 'Diamante';
+                    proximoNivel = 2000;
+                    progresso = (score / 2000) * 100;
+                } else if (score >= 500) {
+                    nivel = 'Ouro';
+                    proximoNivel = 1000;
+                    progresso = ((score - 500) / 500) * 100;
+                } else if (score >= 100) {
+                    nivel = 'Prata';
+                    proximoNivel = 500;
+                    progresso = ((score - 100) / 400) * 100;
+                }
+
+                perfilContainer.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap;">
+                        <div style="text-align: center;">
+                            <i class='bx bx-user-circle' style="font-size: 100px; color: var(--primary-color);"></i>
+                            <h4 style="color: var(--text-color); margin-top: 10px;">${usuario.nome}</h4>
+                            <p style="color: var(--text-color); opacity: 0.7;">${usuario.email}</p>
+                        </div>
+                        
+                        <!-- Card de Score/Nível -->
+                        <div style="flex: 1; background: var(--sidebar-color); padding: 20px; border-radius: 12px; min-width: 250px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <span style="font-weight: 600; font-size: 18px;">Nível ${nivel}</span>
+                                <span style="background: var(--primary-color); color: white; padding: 5px 15px; border-radius: 20px;">${score} pts</span>
+                            </div>
+                            <div style="width: 100%; height: 10px; background: var(--toggle-color); border-radius: 5px; margin-bottom: 10px;">
+                                <div style="width: ${Math.min(progresso, 100)}%; height: 100%; background: linear-gradient(90deg, #695CFE, #9d8cff); border-radius: 5px;"></div>
+                            </div>
+                            <p style="font-size: 14px; opacity: 0.7;">Faltam ${proximoNivel - score} pontos para ${nivel === 'Bronze' ? 'Prata' : nivel === 'Prata' ? 'Ouro' : 'Diamante'}</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; border-top: 1px solid var(--toggle-color); padding-top: 30px;">
+                        <div>
+                            <h5 style="color: var(--text-color); margin-bottom: 15px; font-size: 18px;">Informações Pessoais</h5>
+                            <p><strong>Data de Nascimento:</strong> ${dataNascimento}</p>
+                            <p><strong>CPF:</strong> ${cpf}</p>
+                            <p><strong>Telefone:</strong> ${usuarioCompleto.telefone || 'Não informado'}</p>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--text-color); margin-bottom: 15px; font-size: 18px;">Endereço</h5>
+                            <p>${usuarioCompleto.endereco || 'Não informado'}</p>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--text-color); margin-bottom: 15px; font-size: 18px;">Estatísticas</h5>
+                            <p><strong>Membro desde:</strong> ${new Date().toLocaleDateString('pt-BR')}</p>
+                            <p><strong>Compras realizadas:</strong> ${Math.floor(score / 10)}</p>
+                            <p><strong>Próxima meta:</strong> ${proximoNivel - score} pontos</p>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

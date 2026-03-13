@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UseNohl - Roupas e Acessórios</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <nav class="sidebar">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="logo.png" alt="UseNohl" class="logo-img">
+                </span>
+                <div class="text header-text">
+                    <span class="name">UseNohl</span>
+                    <span class="profession">Roupas e Acessórios</span>
+                </div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box">
+                    <i class='bx bx-search icon'></i>
+                    <input type="search" placeholder="Pesquisar...">
+                </li>
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="index.html">
+                            <img src="icons/inicio.png" alt="Início" class="icon-img" data-light="icons/inicio.png"
+                                data-dark="icons/inicio-branca.png">
+                            <span class="text nav-text">Início</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="blusa.html">
+                            <img src="icons/tshirt.png" alt="Blusa" class="icon-img" data-light="icons/tshirt.png"
+                                data-dark="icons/tshirt-branca.png">
+                            <span class="text nav-text">Blusa</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="calça.html">
+                            <img src="icons/pants.png" alt="Calça" class="icon-img" data-light="icons/pants.png"
+                                data-dark="icons/pants-branca.png">
+                            <span class="text nav-text">Calça</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="acessorios.html">
+                            <img src="icons/acessorios.png" alt="Acessórios" class="icon-img"
+                                data-light="icons/acessorios.png" data-dark="icons/acessorios-branca.png">
+                            <span class="text nav-text">Acessórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="meuperfil.html">
+                            <img src="icons/perfil.png" alt="Meu Perfil" class="icon-img" data-light="icons/perfil.png"
+                                data-dark="icons/perfil-branca.png">
+                            <span class="text nav-text">Meu Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="contato.html">
+                            <img src="icons/envelope.png" alt="Contato" class="icon-img" data-light="icons/envelope.png"
+                                data-dark="icons/envelope-branca.png">
+                            <span class="text nav-text">Contato</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="mode">
+                    <a href="#">
+                        <i class='bx bx-moon icon'></i>
+                        <span class="text nav-text"></span>
+                    </a>
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+
+    <section class="home">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div class="text">UseNohl</div>
+
+            <!-- Ícone do Carrinho -->
+
+            <div class="carrinho-container">
+                <img src="icons/carrinho.png" alt="Carrinho" class="carrinho-icon" data-light="icons/carrinho.png"
+                    data-dark="icons/carrinho-branca.png">
+                <span class="carrinho-badge">0</span>
+                <div class="carrinho-tooltip">0 itens no carrinho</div> <!-- NOVO: tooltip -->
+            </div>
+        </div>
+
+        <!-- Blusas -->
+
+        <div style="margin-top: 30px; color: var(--text-color);">
+            <h3>Blusas</h3>
+            <div class="produtos-grid">
+
+                <!-- Produto 1 - Top Preto -->
+
+                <div class="produto-card">
+                    <span class="produto-desconto">30% OFF</span>
+                    <div class="produto-favorito">
+                        <i class='bx bx-heart'></i>
+                    </div>
+                    <img src="blusa/top-preto.jpg" alt="Top Preto" class="produto-imagem">
+                    <div class="produto-info">
+                        <h4 class="produto-nome">Top Preto Básico</h4>
+
+                        <div class="produto-precos">
+                            <span class="preco-original">R$ 89,90</span>
+                            <span class="preco-atual">R$ 62,90</span>
+                        </div>
+
+                        <div class="produto-avaliacao">
+                            <div class="estrelas">
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star-half'></i>
+                            </div>
+                            <span class="nota">4.7</span>
+                        </div>
+
+                        <span class="preco-pix">no Pix</span>
+                        <span class="frete-gratis">Frete Grátis</span>
+
+                        <button class="btn-comprar-card" data-produto="Top Preto">ADICIONAR</button>
+                    </div>
+                </div>
+
+                <!-- Produto 2 - Top Rosa -->
+
+                <div class="produto-card">
+                    <span class="produto-desconto">25% OFF</span>
+                    <div class="produto-favorito">
+                        <i class='bx bx-heart'></i>
+                    </div>
+                    <img src="blusa/top-rosa.jpg" alt="Top Rosa" class="produto-imagem">
+                    <div class="produto-info">
+                        <h4 class="produto-nome">Top Rosa Feminino</h4>
+
+                        <div class="produto-precos">
+                            <span class="preco-original">R$ 79,90</span>
+                            <span class="preco-atual">R$ 59,90</span>
+                        </div>
+
+                        <div class="produto-avaliacao">
+                            <div class="estrelas">
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bx-star'></i>
+                            </div>
+                            <span class="nota">4.3</span>
+                        </div>
+
+                        <span class="preco-pix">no Pix</span>
+
+                        <button class="btn-comprar-card" data-produto="Top Rosa">ADICIONAR</button>
+                    </div>
+                </div>
+
+                <!-- Produto 3 - Top Vermelho -->
+
+                <div class="produto-card">
+                    <span class="produto-desconto">20% OFF</span>
+                    <div class="produto-favorito">
+                        <i class='bx bx-heart'></i>
+                    </div>
+                    <img src="blusa/top-vermelho.jpg" alt="Top Vermelho" class="produto-imagem">
+                    <div class="produto-info">
+                        <h4 class="produto-nome">Top Vermelho Detalhe</h4>
+
+                        <div class="produto-precos">
+                            <span class="preco-original">R$ 99,90</span>
+                            <span class="preco-atual">R$ 79,90</span>
+                        </div>
+
+                        <div class="produto-avaliacao">
+                            <div class="estrelas">
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                            </div>
+                            <span class="nota">5.0</span>
+                        </div>
+
+                        <span class="preco-pix">no Pix</span>
+
+                        <button class="btn-comprar-card" data-produto="Top Vermelho">ADICIONAR</button>
+                    </div>
+                </div>
+
+                <!-- Produto 4 - Blusa Azul -->
+
+                <div class="produto-card">
+                    <span class="produto-desconto">35% OFF</span>
+                    <div class="produto-favorito">
+                        <i class='bx bx-heart'></i>
+                    </div>
+                    <img src="blusa/blusa-azul.jpg" alt="Blusa Azul" class="produto-imagem">
+                    <div class="produto-info">
+                        <h4 class="produto-nome">Blusa Azul Casual</h4>
+
+                        <div class="produto-precos">
+                            <span class="preco-original">R$ 129,90</span>
+                            <span class="preco-atual">R$ 84,90</span>
+                        </div>
+
+                        <div class="produto-avaliacao">
+                            <div class="estrelas">
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star-half'></i>
+                            </div>
+                            <span class="nota">4.6</span>
+                        </div>
+
+                        <span class="preco-pix">no Pix</span>
+                        <span class="frete-gratis">Frete Grátis</span>
+
+                        <button class="btn-comprar-card" data-produto="Blusa Azul">ADICIONAR</button>
+                    </div>
+                </div>
+
+                <!-- Produto 5 - Blusa Verde -->
+
+                <div class="produto-card">
+                    <span class="produto-desconto">25% OFF</span>
+                    <div class="produto-favorito">
+                        <i class='bx bx-heart'></i>
+                    </div>
+                    <img src="blusa/blusa-verde.jpg" alt="Blusa Verde" class="produto-imagem">
+                    <div class="produto-info">
+                        <h4 class="produto-nome">Blusa Verde Manga Longa</h4>
+
+                        <div class="produto-precos">
+                            <span class="preco-original">R$ 119,90</span>
+                            <span class="preco-atual">R$ 89,90</span>
+                        </div>
+
+                        <div class="produto-avaliacao">
+                            <div class="estrelas">
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bx-star'></i>
+                            </div>
+                            <span class="nota">4.2</span>
+                        </div>
+
+                        <span class="preco-pix">no Pix</span>
+
+                        <button class="btn-comprar-card" data-produto="Blusa Verde">ADICIONAR</button>
+                    </div>
+                </div>
+
+                <!-- Produto 6 - Colete -->
+
+                <div class="produto-card">
+                    <span class="produto-desconto">15% OFF</span>
+                    <div class="produto-favorito">
+                        <i class='bx bx-heart'></i>
+                    </div>
+                    <img src="blusa/colete-bege.jpg" alt="Colete Bege" class="produto-imagem">
+                    <div class="produto-info">
+                        <h4 class="produto-nome">Colete Bege Elegante</h4>
+
+                        <div class="produto-precos">
+                            <span class="preco-original">R$ 159,90</span>
+                            <span class="preco-atual">R$ 135,90</span>
+                        </div>
+
+                        <div class="produto-avaliacao">
+                            <div class="estrelas">
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                            </div>
+                            <span class="nota">5.0</span>
+                        </div>
+
+                        <span class="preco-pix">no Pix</span>
+
+                        <button class="btn-comprar-card" data-produto="Colete Bege">ADICIONAR</button>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+
+</html>
