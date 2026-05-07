@@ -1,0 +1,22 @@
+# Sistema operacional e editor
+.DS_Store
+Thumbs.db
+
+# Dependencias e builds, caso o projeto evolua para usar ferramentas Node
+node_modules/
+dist/
+build/
+
+# Arquivos locais e temporarios
+*.log
+*.tmp
+*.temp
+
+# Dumps e backups de banco de dados nao pertencem ao front-end
+*.sql
+*.dump
+*.bak
+
+# Variaveis de ambiente locais
+.env
+.env.*

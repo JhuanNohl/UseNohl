@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let carrinhoItensContainer = null;
     let usuarioLogado = null;
     let redirectAposLogin = null;
+    const REDIRECT_APOS_LOGIN_KEY = 'usenohl-redirect-apos-login';
 
     const sidebar = document.querySelector('.sidebar');
     const toggleBtn = document.querySelector('.toggle');
@@ -17,6 +18,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const modeIcon = document.querySelector('.mode .icon');
     const logoImg = document.querySelector('.sidebar .image img');
     const iconImgs = document.querySelectorAll('.icon-img');
+
+    function definirRedirectAposLogin(destino) {
+        redirectAposLogin = destino;
+        sessionStorage.setItem(REDIRECT_APOS_LOGIN_KEY, destino);
+    }
+
+    function consumirRedirectAposLogin() {
+        const destino = redirectAposLogin || sessionStorage.getItem(REDIRECT_APOS_LOGIN_KEY);
+        redirectAposLogin = null;
+        sessionStorage.removeItem(REDIRECT_APOS_LOGIN_KEY);
+        return destino;
+    }
 
     function atualizarMenuUsuario() {
         const bottomContent = document.querySelector('.bottom-content');
@@ -34,12 +47,15 @@ document.addEventListener('DOMContentLoaded', function () {
             loginItem.innerHTML = `
                 <a href="meuperfil.html" style="display: flex; align-items: center; width: 100%; text-decoration: none;">
                     <i class='bx bx-user-circle icon'></i>
-                    <span class="text nav-text">${usuarioLogado.nome.split(' ')[0]}</span>
+                    <span class="text nav-text"></span>
                 </a>
                 <div style="display: flex; gap: 5px; margin-left: auto; margin-right: 10px;">
                     <i class='bx bx-log-out icon' style="font-size: 20px; cursor: pointer;" onclick="logout()" title="Sair"></i>
                 </div>
             `;
+
+            const primeiroNome = usuarioLogado.nome?.split(' ')[0] || 'Perfil';
+            loginItem.querySelector('.nav-text').textContent = primeiroNome;
         } else {
             loginItem.innerHTML = `
                 <a href="login.html" style="display: flex; align-items: center; width: 100%; text-decoration: none;">
@@ -87,11 +103,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         atualizarMenuUsuario();
 
-        if (redirectAposLogin) {
-            const destino = redirectAposLogin;
-            redirectAposLogin = null;
+        const destino = consumirRedirectAposLogin();
+        if (destino) {
             window.location.href = destino;
+            return destino;
         }
+
+        return null;
     }
 
     window.logout = function () {
@@ -109,9 +127,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (usuario) {
             const manterLogado = document.getElementById('manter-logado')?.checked || false;
             const { senha, ...usuarioSemSenha } = usuario;
-            salvarUsuario(usuarioSemSenha, manterLogado);
+            const destino = salvarUsuario(usuarioSemSenha, manterLogado);
 
-            if (!redirectAposLogin) {
+            if (!destino) {
                 window.location.href = 'index.html';
             }
             return true;
@@ -249,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.irParaCheckout = function () {
         if (!usuarioLogado) {
-            redirectAposLogin = 'checkout.html';
+            definirRedirectAposLogin('checkout.html');
             window.location.href = 'login.html';
             return false;
         }
@@ -647,7 +665,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (window.location.href.includes('checkout.html')) {
             if (!usuarioLogado) {
-                redirectAposLogin = 'checkout.html';
+                definirRedirectAposLogin('checkout.html');
                 window.location.href = 'login.html';
             }
         }

@@ -537,7 +537,7 @@
                         </a>
                     </li>
                     <li class="nav-link">
-                        <a href="calça.html">
+                        <a href="calca.html">
                             <img src="icons/pants.png" alt="Calça" class="icon-img" data-light="icons/pants.png"
                                 data-dark="icons/pants-branca.png">
                             <span class="text nav-text">Calça</span>
@@ -728,6 +728,22 @@
     </div>
 
     <script>
+        function formatarMoeda(valor) {
+            return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function calcularQuantidadeTotal(carrinho) {
+            return carrinho.reduce((acc, item) => acc + (Number(item.quantidade) || 1), 0);
+        }
+
+        function calcularSubtotalCarrinho(carrinho) {
+            return carrinho.reduce((acc, item) => {
+                const preco = parseFloat(item.preco) || 89.90;
+                const quantidade = Number(item.quantidade) || 1;
+                return acc + (preco * quantidade);
+            }, 0);
+        }
+
         function carregarCheckout() {
             const carrinho = JSON.parse(localStorage.getItem('usenohl-carrinho')) || [];
             const containerItens = document.getElementById('itens-carrinho-checkout');
@@ -740,15 +756,16 @@
                 return;
             }
 
-            badge.textContent = carrinho.length;
-            tooltip.textContent = `${carrinho.length} itens no carrinho`;
+            const totalItens = calcularQuantidadeTotal(carrinho);
+            badge.textContent = totalItens;
+            tooltip.textContent = totalItens === 1 ? '1 item no carrinho' : `${totalItens} itens no carrinho`;
 
             containerItens.innerHTML = '';
-            let subtotal = 0;
+            let subtotal = calcularSubtotalCarrinho(carrinho);
 
             carrinho.forEach(item => {
                 const preco = parseFloat(item.preco) || 89.90;
-                subtotal += preco;
+                const quantidade = Number(item.quantidade) || 1;
 
                 containerItens.innerHTML += `
                     <div class="carrinho-item-checkout">
@@ -762,8 +779,8 @@
                                 <span>Cor: Única</span>
                             </div>
                             <div class="item-preco-checkout">
-                                <span class="item-preco">R$ ${preco.toFixed(2)}</span>
-                                <span class="item-quantidade">Qtd: 1</span>
+                                <span class="item-preco">${formatarMoeda(preco)}</span>
+                                <span class="item-quantidade">Qtd: ${quantidade}</span>
                             </div>
                         </div>
                     </div>
@@ -794,23 +811,23 @@
 
             const total = subtotal + garantiaAtual - desconto;
 
-            subtotalSpan.textContent = `R$ ${subtotal.toFixed(2)}`;
+            subtotalSpan.textContent = formatarMoeda(subtotal);
 
             if (garantiaAtual > 0) {
                 document.getElementById('linha-garantia').style.display = 'flex';
-                document.getElementById('garantia-valor').textContent = `+ R$ ${garantiaAtual.toFixed(2)}`;
+                document.getElementById('garantia-valor').textContent = `+ ${formatarMoeda(garantiaAtual)}`;
             } else {
                 document.getElementById('linha-garantia').style.display = 'none';
             }
 
             if (desconto > 0) {
                 document.getElementById('linha-desconto').style.display = 'flex';
-                document.getElementById('desconto-valor').textContent = `- R$ ${desconto.toFixed(2)}`;
+                document.getElementById('desconto-valor').textContent = `- ${formatarMoeda(desconto)}`;
             } else {
                 document.getElementById('linha-desconto').style.display = 'none';
             }
 
-            totalSpan.textContent = `R$ ${total.toFixed(2)}`;
+            totalSpan.textContent = formatarMoeda(total);
         }
 
         document.querySelectorAll('input[name="garantia"]').forEach(radio => {
@@ -823,7 +840,7 @@
                 this.closest('.garantia-opcao').classList.add('selecionada');
 
                 const carrinho = JSON.parse(localStorage.getItem('usenohl-carrinho')) || [];
-                const subtotal = carrinho.reduce((acc, item) => acc + (parseFloat(item.preco) || 89.90), 0);
+                const subtotal = calcularSubtotalCarrinho(carrinho);
                 atualizarResumo(subtotal);
             });
         });
@@ -836,7 +853,7 @@
                 cupomAplicado.style.display = 'flex';
 
                 const carrinho = JSON.parse(localStorage.getItem('usenohl-carrinho')) || [];
-                const subtotal = carrinho.reduce((acc, item) => acc + (parseFloat(item.preco) || 89.90), 0);
+                const subtotal = calcularSubtotalCarrinho(carrinho);
                 atualizarResumo(subtotal);
             } else {
                 alert('Cupom inválido! Tente USE14NOHL');
